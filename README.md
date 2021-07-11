@@ -1,10 +1,8 @@
-# A-K-Q
-Poker toy model
+# The Ace-King-Queen Game
 
-            <h1>Project #1: The AKQ Game</h1>
-            <hr>
-            <small style="{margin-left: 70%; }">2021-05-10</small>
-            <h2>Game overview</h2>
+A toy model poker game written in Python
+
+## Game Overview
 
 <p>According to <em>The Mathematics of Poker</em> (Chen and Ankenman 2006), the AKQ game <em>"represents perhaps the simplest form of symmetrical, non-trivial poker."</em></p>
 
@@ -23,7 +21,7 @@ Poker toy model
 <p>The rules of the game are</p>
 
 <ul>
-<li>Three-card deck: <strong>Ace, King and Queen (A,K,Q)</strong></li>
+<li>Three-card deck: <strong>Ace, King and Queen (A, K , Q)</strong></li>
 <li>Players are dealt <strong>one card</strong> each, without replacement, and there is an initial ante</li>
 <li>There is one round of betting, after which there is a showdown (if neither player folds). High card wins at showdown.</li>
 <li>The <strong>blind</strong> can <strong><em>only</em></strong> check or bet</li>
@@ -31,16 +29,6 @@ Poker toy model
 <li>If play goes to showdown, the high card wins</li>
 </ul>
 
-<h2>Basic Spec</h2>
+### Work in progress
 
-<ul>
-<li>Create cards data structure + ranking (dictionary?)</li>
-<li>Create two players &amp; two positions</li>
-<li>Randomly select one card for each player (without replacement)</li>
-<li>Create binary decision options for 2 players
-<ul>
-<li>The blind acts first — can <code>0: check</code> or <code>1:raise</code></li>
-<li>The button acts second — can <code>0:call</code> or <code>1:fold</code></li>
-</ul></li>
-<li>Create scoreboard</li>
-</ul>
+The first commit is a first draft, half-logic script where the player is always on the button.
