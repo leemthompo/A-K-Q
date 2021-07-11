@@ -35,4 +35,7 @@ The first commit is a first draft, half-logic script where the player is always 
 
 ### Demo
 
-<video><source src="vim_read.mov" type="video/mp4"></video>
+
+
+https://user-images.githubusercontent.com/32779855/125199624-59246b80-e267-11eb-98ca-73008bbf2fde.mov
+
