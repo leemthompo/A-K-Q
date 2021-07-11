@@ -32,3 +32,7 @@ A toy model poker game written in Python
 ### Work in progress
 
 The first commit is a first draft, half-logic script where the player is always on the button.
+
+### Demo
+
+<video><source src="vim_read.mov" type="video/mp4"></video>
