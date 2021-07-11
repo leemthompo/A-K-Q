@@ -3,8 +3,7 @@ Poker toy model
 
             <h1>Project #1: The AKQ Game</h1>
             <hr>
-            <small style="{margin-left: 70%;
-}">2021-05-10</small>
+            <small style="{margin-left: 70%; }">2021-05-10</small>
             <h2>Game overview</h2>
 
 <p>According to <em>The Mathematics of Poker</em> (Chen and Ankenman 2006), the AKQ game <em>"represents perhaps the simplest form of symmetrical, non-trivial poker."</em></p>
