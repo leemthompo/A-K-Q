@@ -11,7 +11,7 @@ computer_score = 0
 your_score = 0
 
 # BIG CARDS
-big_queen = """
+QUEEN = """
  ┌─────────┐
  │ Q       │
  │         │
@@ -23,7 +23,7 @@ big_queen = """
  └─────────┘"""
 
 
-big_king = """
+KING = """
  ┌─────────┐
  │ K       │
  │         │
@@ -34,7 +34,7 @@ big_king = """
  │        K│
  └─────────┘"""
 
-big_ace = """
+ACE = """
  ┌─────────┐
  │ A       │
  │         │
@@ -110,9 +110,9 @@ def deal(deck):
 def play(deck):
     global computer_score
     global your_score
-    global big_queen
-    global big_king
-    global big_ace
+    global QUEEN
+    global KING
+    global ACE
     global your_hand
     global computer_hand
 
@@ -128,12 +128,13 @@ def play(deck):
 
 def show_card(your_hand):
     """Print the hand to the console."""
+    print("\n" * 40)
     if your_hand == 0:
-        print("Your card: ", big_queen)
+        print("Your card: ", QUEEN)
     elif your_hand == 1:
-        print("Your card: ", big_king)
+        print("Your card: ", KING)
     else:
-        print("Your card: ", big_ace)
+        print("Your card: ", ACE)
     time.sleep(2)
 
 # TODO Here you need to break out your_move into a separate function
