@@ -99,13 +99,13 @@ def button_or_blind():
         print("Tails")
         print("\n")
         if decision.upper() == "T":
-            print("You won the cointoss. You are on the button in the first round")
+            print("You won the cointoss. You are on the button in the first round.")
             time.sleep(2)
             button = 0
             blind = 1
         else:
             print("\n")
-            print("You lost the cointoss. You are the blind in the first round")
+            print("You lost the cointoss. You are the blind in the first round.")
             time.sleep(2)
             button = 1
             blind = 0
@@ -128,26 +128,6 @@ def deal(deck):
 
     return computer_hand, your_hand
 
-
-# TODO break down into logical functions and abstract certain logic aspects
-
-
-def play(deck):
-    global computer_score
-    global your_score
-    global QUEEN
-    global KING
-    global ACE
-    global your_hand
-    global computer_hand
-
-    print("\n")
-    time.sleep(1)
-
-    print("--------")
-    print("New Hand")
-    print("--------")
-    print("\n")
 
 
 def show_card(your_hand):
@@ -251,7 +231,7 @@ def button_moves(computer_hand, your_hand):
     computer_move = 0
 
     decision = input("Check or [r]aise?: ")
-    if decision.upper == "R" or "RAISE":
+    if decision.upper() == "R" or "RAISE":
         your_move += 1
     else:
         your_move = 0
@@ -280,8 +260,8 @@ def button_moves(computer_hand, your_hand):
         elif computer_hand == 2:
             print("Computer calls. Computer has Ace!")
             print("\n")
+
             computer_move += 1
-        print(your_hand, your_move, "COMPUTER MOVE: ", computer_move, "COMPUTER CARD:", computer_hand)  # DEBUG
         # Showdown logic
         if computer_hand > your_hand and computer_move == 1:
             computer_score += 1
@@ -292,8 +272,6 @@ def button_moves(computer_hand, your_hand):
         else:
             your_score += 1
 
-        if computer_hand == your_hand:
-            print("THERES SOMETHING VERY WRONG HERE")
 
 print("\n" * 10)
 print("""       d8888 888    d8P   .d88888b.
@@ -310,13 +288,13 @@ d88P     888 888    Y88b  "Y888888"
       """)
 
 time.sleep(3)
+
 button, blind = button_or_blind()  # Cointoss to determine button
-while your_score < 5 and computer_score < 5:
-    # play(deck)
+
+while your_score < 5 and computer_score < 5:  # Main game loop
 
     computer_hand, your_hand = deal(deck)
     show_card(your_hand)
-    print(computer_hand, your_hand)
 
     if button == 0:
         print("You are on the button. Computer acts first.")
@@ -332,11 +310,15 @@ while your_score < 5 and computer_score < 5:
     print("-------------------")
     time.sleep(2)
     print("\n")
-
+    print("--------")
+    print("New Hand")
+    print("--------")
     button, blind = blind, button  # Flip the button and blinds to alternate
 
 else:
     if computer_score == 5:
         os.system("cowsay COMPUTER WINS!")
+        os.system("say computer wins")
     else:
         os.system("cowsay YOU WIN!")
+        os.system("say you win")
