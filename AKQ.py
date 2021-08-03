@@ -291,34 +291,34 @@ time.sleep(3)
 
 button, blind = button_or_blind()  # Cointoss to determine button
 
-while your_score < 5 and computer_score < 5:  # Main game loop
+if __name__ == "__main__":
+    while your_score < 5 and computer_score < 5:  # Main game loop
 
-    computer_hand, your_hand = deal(deck)
-    show_card(your_hand)
+        computer_hand, your_hand = deal(deck)
+        show_card(your_hand)
 
-    if button == 0:
-        print("You are on the button. Computer acts first.")
-        blind_moves(computer_hand, your_hand)
+        if button == 0:
+            print("You are on the button. Computer acts first.")
+            blind_moves(computer_hand, your_hand)
+        else:
+            print("You are on the blind. You act first.")
+            button_moves(computer_hand, your_hand)
+
+        print("-------------------")
+        print("Your score: ", your_score)
+        print("Computer score: ", computer_score)
+        print("-------------------")
+        time.sleep(2)
+        print("\n")
+        print("--------")
+        print("New Hand")
+        print("--------")
+        button, blind = blind, button  # Flip the button and blinds to alternate
+
     else:
-        print("You are on the blind. You act first.")
-        button_moves(computer_hand, your_hand)
-
-
-    print("-------------------")
-    print("Your score: ", your_score)
-    print("Computer score: ", computer_score)
-    print("-------------------")
-    time.sleep(2)
-    print("\n")
-    print("--------")
-    print("New Hand")
-    print("--------")
-    button, blind = blind, button  # Flip the button and blinds to alternate
-
-else:
-    if computer_score == 5:
-        os.system("cowsay COMPUTER WINS!")
-        os.system("say computer wins")
-    else:
-        os.system("cowsay YOU WIN!")
-        os.system("say you win")
+        if computer_score == 5:
+            os.system("cowsay COMPUTER WINS!")
+            os.system("say computer wins")
+        else:
+            os.system("cowsay YOU WIN!")
+            os.system("say you win")
