@@ -7,8 +7,8 @@ import os
 
 deck = [0, 1, 2]
 
-computer_score = 0
-your_score = 0
+computer_score = 10
+your_score = 10
 
 # Initial player on button determined by `button_or_blind()`
 # After each rounds the button and blinds alternate
@@ -176,10 +176,12 @@ def blind_moves(computer_hand, your_hand):
         print("\n")
         if computer_hand > your_hand:
             computer_score += 1
+            your_score -= 1
             print("You lose this hand :(")
             print("\n")
         else:
             your_score += 1
+            computer_score -= 1
             print("You win this hand!")
             print("\n")
     elif computer_move == 1:
@@ -188,10 +190,12 @@ def blind_moves(computer_hand, your_hand):
         time.sleep(2)
         if computer_hand > your_hand:
             computer_score += 1
+            your_score -= 1
             print("You lose this hand :(")
             print("\n")
         else:
             your_score += 1
+            computer_score -= 1
             print("You win this hand")
             print("\n")
     else:
@@ -204,19 +208,23 @@ def blind_moves(computer_hand, your_hand):
         ## Showdown logic
         if decision.upper() == ("CALL") and your_hand > computer_hand:
             your_score += 1
+            computer_score -= 1
             print("Computer has a Queen. You win this hand!")
             print("\n")
         elif decision.upper() == ("CALL") and your_hand < computer_hand:
             if computer_hand == 1:
                 computer_score += 1
+                your_score -= 1
                 print("Computer has a King. You lost this hand")
                 print("\n")
             else:
                 computer_score += 1
+                your_score -= 1
                 print("Computer has the Ace. You lost this hand.")
                 print("\n")
         else:
             computer_score += 1
+            your_score -= 1
             print("You fold")
             print("\n")
 
@@ -260,17 +268,19 @@ def button_moves(computer_hand, your_hand):
         elif computer_hand == 2:
             print("Computer calls. Computer has Ace!")
             print("\n")
-
             computer_move += 1
+
         # Showdown logic
         if computer_hand > your_hand and computer_move == 1:
             computer_score += 1
+            your_score -= 1
             if computer_hand == 2:
                 print("Computer has Ace. You lost this hand.")
             else:
                 print("Computer has King. You lost this hand.")
         else:
             your_score += 1
+            computer_score -= 1
 
 
 print("\n" * 10)
@@ -292,7 +302,7 @@ time.sleep(3)
 button, blind = button_or_blind()  # Cointoss to determine button
 
 if __name__ == "__main__":
-    while your_score < 5 and computer_score < 5:  # Main game loop
+    while your_score != 0 and computer_score != 0:  # Main game loop
 
         computer_hand, your_hand = deal(deck)
         show_card(your_hand)
@@ -316,7 +326,7 @@ if __name__ == "__main__":
         button, blind = blind, button  # Flip the button and blinds to alternate
 
     else:
-        if computer_score == 5:
+        if computer_score == 20:
             os.system("cowsay COMPUTER WINS!")
             os.system("say computer wins")
         else:
