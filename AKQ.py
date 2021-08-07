@@ -239,9 +239,9 @@ def button_moves(computer_hand, your_hand):
     computer_move = 0
 
     decision = input("Check or [r]aise?: ")
-    if decision.upper() == "R" or "RAISE":
+    if decision[0].upper() == "R":
         your_move += 1
-    else:
+    elif decision[0].upper() == "C":
         your_move = 0
 
     # Prompts for human player
