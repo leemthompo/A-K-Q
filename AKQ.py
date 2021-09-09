@@ -6,7 +6,7 @@ import os
 # AKQ Game
 
 deck = [0, 1, 2]
-
+pot = 0
 computer_score = 10
 your_score = 10
 
@@ -54,8 +54,17 @@ ACE = """
 
 
 def ante():
-    """Take one chip from each players chipstack as the ante"""
-    pass
+    """Take one chip from each players chipstack and add to the pot"""
+
+    global computer_score
+    global your_score
+    global pot
+
+    computer_score -= 1
+    your_score -= 1
+    pot += 2
+    print("Ante of 1 chip each")
+    print(f"The pot has {pot} chips.")
 
 
 def button_or_blind():
@@ -306,6 +315,7 @@ if __name__ == "__main__":
 
         computer_hand, your_hand = deal(deck)
         show_card(your_hand)
+        ante()
 
         if button == 0:
             print("You are on the button. Computer acts first.")
