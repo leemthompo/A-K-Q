@@ -334,6 +334,7 @@ if __name__ == "__main__":
         print("New Hand")
         print("--------")
         button, blind = blind, button  # Flip the button and blinds to alternate
+        pot = 0
 
     else:
         if computer_score == 20:
