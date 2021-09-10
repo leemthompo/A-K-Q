@@ -165,6 +165,7 @@ def blind_moves(computer_hand, your_hand):
 
     global computer_score
     global your_score
+    global pot
 
     computer_move = 0
 
@@ -214,7 +215,7 @@ def blind_moves(computer_hand, your_hand):
         print("\n")
         time.sleep(1)
 
-        ## Showdown logic
+        ## Showdown logic TODO: separate moves and showdown
         if decision.upper() == ("CALL") and your_hand > computer_hand:
             your_score += 1
             computer_score -= 1
@@ -243,11 +244,11 @@ def button_moves(computer_hand, your_hand):
 
     global your_score
     global computer_score
-
+    global pot
     your_move = 0
     computer_move = 0
 
-    decision = input("Check or [r]aise?: ")
+    decision = input("[c]heck or [r]aise (1 chip)?: ")
     if decision[0].upper() == "R":
         your_move += 1
     elif decision[0].upper() == "C":
@@ -259,6 +260,8 @@ def button_moves(computer_hand, your_hand):
         print("\n")
     else:
         print("You raised.")
+        pot += 1
+        your_score -= 1
         print("\n")
         time.sleep(2)
         if computer_hand == 0:
@@ -269,6 +272,7 @@ def button_moves(computer_hand, your_hand):
             i = random.randint(1, 3)  # Randomize calling with K 1/3 of the time
             if i == 3:
                 computer_move += 1
+                computer_score -= 1
             else:
                 print("Computer folds")
                 print("You win this hand!")
