@@ -6,9 +6,9 @@ import os
 # AKQ Game
 
 deck = [0, 1, 2]
-
-computer_score = 0
-your_score = 0
+pot = 0
+computer_chips = 10
+human_chips = 10
 
 # Initial player on button determined by `button_or_blind()`
 # After each rounds the button and blinds alternate
@@ -54,8 +54,17 @@ ACE = """
 
 
 def ante():
-    """Take one chip from each players chipstack as the ante"""
-    pass
+    """Take one chip from each players chipstack and add to the pot"""
+
+    global computer_chips
+    global human_chips
+    global pot
+
+    computer_chips -= 1
+    human_chips -= 1
+    pot += 2
+    print("Ante of 1 chip each")
+    print(f"The pot has {pot} chips.")
 
 
 def button_or_blind():
@@ -154,8 +163,9 @@ def show_card(your_hand):
 def blind_moves(computer_hand, your_hand):
     """Move for computer on the blind."""
 
-    global computer_score
-    global your_score
+    global computer_chips
+    global human_chips
+    global pot
 
     computer_move = 0
 
@@ -175,11 +185,13 @@ def blind_moves(computer_hand, your_hand):
         print("Computer checks. Let's see them cards!")
         print("\n")
         if computer_hand > your_hand:
-            computer_score += 1
+            computer_chips += 1
+            human_chips -= 1
             print("You lose this hand :(")
             print("\n")
         else:
-            your_score += 1
+            human_chips += 1
+            computer_chips -= 1
             print("You win this hand!")
             print("\n")
     elif computer_move == 1:
@@ -187,11 +199,13 @@ def blind_moves(computer_hand, your_hand):
         print("\n")
         time.sleep(2)
         if computer_hand > your_hand:
-            computer_score += 1
+            computer_chips += 1
+            human_chips -= 1
             print("You lose this hand :(")
             print("\n")
         else:
-            your_score += 1
+            human_chips += 1
+            computer_chips -= 1
             print("You win this hand")
             print("\n")
     else:
@@ -201,22 +215,26 @@ def blind_moves(computer_hand, your_hand):
         print("\n")
         time.sleep(1)
 
-        ## Showdown logic
+        ## Showdown logic TODO: separate moves and showdown
         if decision.upper() == ("CALL") and your_hand > computer_hand:
-            your_score += 1
+            human_chips += 1
+            computer_chips -= 1
             print("Computer has a Queen. You win this hand!")
             print("\n")
         elif decision.upper() == ("CALL") and your_hand < computer_hand:
             if computer_hand == 1:
-                computer_score += 1
+                computer_chips += 1
+                human_chips -= 1
                 print("Computer has a King. You lost this hand")
                 print("\n")
             else:
-                computer_score += 1
+                computer_chips += 1
+                human_chips -= 1
                 print("Computer has the Ace. You lost this hand.")
                 print("\n")
         else:
-            computer_score += 1
+            computer_chips += 1
+            human_chips -= 1
             print("You fold")
             print("\n")
 
@@ -224,16 +242,16 @@ def blind_moves(computer_hand, your_hand):
 def button_moves(computer_hand, your_hand):
     """Move for computer on the button. Prompts for human."""
 
-    global your_score
-    global computer_score
-
+    global human_chips
+    global computer_chips
+    global pot
     your_move = 0
     computer_move = 0
 
-    decision = input("Check or [r]aise?: ")
-    if decision.upper() == "R" or "RAISE":
+    decision = input("[c]heck or [r]aise (1 chip)?: ")
+    if decision[0].upper() == "R":
         your_move += 1
-    else:
+    elif decision[0].upper() == "C":
         your_move = 0
 
     # Prompts for human player
@@ -242,6 +260,8 @@ def button_moves(computer_hand, your_hand):
         print("\n")
     else:
         print("You raised.")
+        pot += 1
+        human_chips -= 1
         print("\n")
         time.sleep(2)
         if computer_hand == 0:
@@ -252,6 +272,7 @@ def button_moves(computer_hand, your_hand):
             i = random.randint(1, 3)  # Randomize calling with K 1/3 of the time
             if i == 3:
                 computer_move += 1
+                computer_chips -= 1
             else:
                 print("Computer folds")
                 print("You win this hand!")
@@ -260,17 +281,19 @@ def button_moves(computer_hand, your_hand):
         elif computer_hand == 2:
             print("Computer calls. Computer has Ace!")
             print("\n")
-
             computer_move += 1
+
         # Showdown logic
         if computer_hand > your_hand and computer_move == 1:
-            computer_score += 1
+            computer_chips += 1
+            human_chips -= 1
             if computer_hand == 2:
                 print("Computer has Ace. You lost this hand.")
             else:
                 print("Computer has King. You lost this hand.")
         else:
-            your_score += 1
+            human_chips += 1
+            computer_chips -= 1
 
 
 print("\n" * 10)
@@ -291,34 +314,36 @@ time.sleep(3)
 
 button, blind = button_or_blind()  # Cointoss to determine button
 
-while your_score < 5 and computer_score < 5:  # Main game loop
+if __name__ == "__main__":
+    while human_chips != 0 and computer_chips != 0:  # Main game loop
 
-    computer_hand, your_hand = deal(deck)
-    show_card(your_hand)
+        computer_hand, your_hand = deal(deck)
+        show_card(your_hand)
+        ante()
 
-    if button == 0:
-        print("You are on the button. Computer acts first.")
-        blind_moves(computer_hand, your_hand)
+        if button == 0:
+            print("You are on the button. Computer acts first.")
+            blind_moves(computer_hand, your_hand)
+        else:
+            print("You are on the blind. You act first.")
+            button_moves(computer_hand, your_hand)
+
+        print("-------------------")
+        print("Your score: ", human_chips)
+        print("Computer score: ", computer_chips)
+        print("-------------------")
+        time.sleep(2)
+        print("\n")
+        print("--------")
+        print("New Hand")
+        print("--------")
+        button, blind = blind, button  # Flip the button and blinds to alternate
+        pot = 0
+
     else:
-        print("You are on the blind. You act first.")
-        button_moves(computer_hand, your_hand)
-
-
-    print("-------------------")
-    print("Your score: ", your_score)
-    print("Computer score: ", computer_score)
-    print("-------------------")
-    time.sleep(2)
-    print("\n")
-    print("--------")
-    print("New Hand")
-    print("--------")
-    button, blind = blind, button  # Flip the button and blinds to alternate
-
-else:
-    if computer_score == 5:
-        os.system("cowsay COMPUTER WINS!")
-        os.system("say computer wins")
-    else:
-        os.system("cowsay YOU WIN!")
-        os.system("say you win")
+        if computer_chips == 20:
+            os.system("cowsay COMPUTER WINS!")
+            os.system("say computer wins")
+        else:
+            os.system("cowsay YOU WIN!")
+            os.system("say you win")
